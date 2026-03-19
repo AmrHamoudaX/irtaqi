@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum Emirate {
+  ABU_DHABI
+  DUBAI
+  SHARJAH
+  AJMAN
+  UMM_AL_QUWAIN
+  RAS_AL_KHAIMAH
+  FUJAIRAH
+}
+
+model User {
+  id         String   @id @default(uuid())
+  email      String   @unique
+  emiratesId String     @unique
+  name       String
+  role       Role     @default(STUDENT)
+  phone      String?
+  student    Student?
+  teacher    Teacher?
+}
+
+model Mosque {
+  id        String   @id @default(uuid())
+  nameAr    String
+  nameEn    String
+  emirate   Emirate
+  address   String
+  classes   Class[]
+}
+
+model Teacher {
+  id             String   @id @default(uuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id])
+  classes        Class[]
+}
+
+model Student {
+  id           String       @id @default(uuid())
+  userId       String       @unique
+  user         User         @relation(fields: [userId], references: [id])
+  currentJuz   Int          @default(0)
+  enrollments  Enrollment[]
+  progressLogs ProgressLog[]
+}
+
+model Class {
+  id          String       @id @default(uuid())
+  title       String
+  startTime   String
+  endTime     String
+  mosqueId    String
+  mosque      Mosque       @relation(fields: [mosqueId], references: [id])
+  teacherId   String
+  teacher     Teacher      @relation(fields: [teacherId], references: [id])
+  enrollments Enrollment[]
+}
+
+model Enrollment {
+  id        String   @id @default(uuid())
+  studentId String
+  classId   String
+  student   Student  @relation(fields: [studentId], references: [id])
+  class     Class    @relation(fields: [classId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([studentId, classId]) // Prevents double enrollment
+}
+
+model ProgressLog {
+  id        String   @id @default(uuid())
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id])
+  surah     Int      // Surah number (1-114)
+  fromAyah  Int
+  toAyah    Int
+  comment   String?
+  createdAt DateTime @default(now())
+}
