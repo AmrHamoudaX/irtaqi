@@ -158,6 +158,17 @@
     --sidebar-ring: oklch(0.556 0 0);
   }
 
+.icon-mask {
+  display: inline-block;
+  background-color: currentColor;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
 @layer base {
   * {
     @apply border-border;
