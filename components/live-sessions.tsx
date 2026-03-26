@@ -3,12 +3,12 @@ import emptyContent from "../public/empty_content.svg";
 
 export function LiveSessions() {
   return (
-    <section>
-      <div className="flex justify-between items-center mb-4 size-full">
+    <section className="flex flex-col gap-3">
+      <div>
         <h2 className="text-xl font-bold text-gray-800"> Live Sessions </h2>
       </div>
       <div className="bg-white rounded-xl p-8 md:p-12 flex flex-col items-center justify-center border border-gray-100 shadow-sm text-center w-full">
-        <div className="w-20 h-20 md:w-24 md:h-24 bg-teal-50 rounded-full flex items-center justify-center mb-4">
+        <div className="size-35 md:size-45 rounded-full flex items-center justify-center mb-4">
           <Image src={emptyContent} alt="Empty Content" />
         </div>
         <h3 className="text-base md:text-lg font-bold text-gray-800 mb-3">

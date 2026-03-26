@@ -8,11 +8,11 @@ export function Hero() {
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800 w-full md:w-auto">
             Irtaqi
           </h1>
-          <div className="flex flex-wrap gap-5 items-center justify-around w-full md:w-auto">
-            <button className="flex gap-3 bg-white text-gray-800 px-3 py-2.5 rounded-lg items-center justify-center text-sm font-medium shadow-sm w-full sm:w-auto">
+          <div className="flex flex-wrap gap-5 items-center justify-center w-full md:w-auto">
+            <button className="flex gap-3 bg-white text-gray-800 px-3 py-2.5 rounded-lg items-center justify-center text-sm font-medium shadow-sm w-auto">
               <Calendar className="w-4 h-4 ml-2" /> Register for summer course
             </button>
-            <button className="flex gap-3 bg-white text-gray-800 px-3 py-2.5 rounded-lg items-center justify-center text-sm font-medium shadow-sm w-full sm:w-auto">
+            <button className="flex gap-3 bg-white text-gray-800 px-3 py-2.5 rounded-lg items-center justify-center text-sm font-medium shadow-sm w-auto">
               <Users className="w-4 h-4 ml-2" /> Invite a Friend
             </button>
           </div>
