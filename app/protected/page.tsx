@@ -1,3 +1,9 @@
+import { LiveSessions } from "@/components/live-sessions";
+
 export default function ProtectedPage() {
-  return <div></div>;
+  return (
+    <div>
+      <LiveSessions />
+    </div>
+  );
 }
