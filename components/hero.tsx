@@ -1,44 +1,23 @@
-import { NextLogo } from "./next-logo";
-import { SupabaseLogo } from "./supabase-logo";
+import { Calendar, Users } from "lucide-react";
 
 export function Hero() {
   return (
-    <div className="flex flex-col gap-16 items-center">
-      <div className="flex gap-8 justify-center items-center">
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SupabaseLogo />
-        </a>
-        <span className="border-l rotate-45 h-6" />
-        <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
-          <NextLogo />
-        </a>
+    <div className="size-full flex flex-col gap-16 mt-10 pr-7.5">
+      <div className="bg-[url(../public/coverMain.png)] bg-center bg-cover flex bg-[#A4C3B2] rounded-2xl p-5 md:p-20 flex-col md:flex-row items-center justify-between relative overflow-hidden gap-6 text-center md:text-right">
+        <div className="flex flex-wrap gap-5 justify-between items-center align-middle relative w-full">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 w-full md:w-auto">
+            Irtaqi
+          </h1>
+          <div className="flex flex-wrap gap-5 items-center justify-around w-full md:w-auto">
+            <button className="flex gap-3 bg-white text-gray-800 px-3 py-2.5 rounded-lg items-center justify-center text-sm font-medium shadow-sm w-full sm:w-auto">
+              <Calendar className="w-4 h-4 ml-2" /> Register for summer course
+            </button>
+            <button className="flex gap-3 bg-white text-gray-800 px-3 py-2.5 rounded-lg items-center justify-center text-sm font-medium shadow-sm w-full sm:w-auto">
+              <Users className="w-4 h-4 ml-2" /> Invite a Friend
+            </button>
+          </div>
+        </div>
       </div>
-      <h1 className="sr-only">Supabase and Next.js Starter Template</h1>
-      <p className="text-3xl lg:text-4xl leading-tight! mx-auto max-w-xl text-center">
-        The fastest way to build apps with{" "}
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Supabase
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://nextjs.org/"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Next.js
-        </a>
-      </p>
-      <div className="w-full p-px bg-linear-to-r from-transparent via-foreground/10 to-transparent my-8" />
     </div>
   );
 }
