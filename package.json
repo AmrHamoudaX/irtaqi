@@ -4,7 +4,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "supabase:start": "bash supabase/bin/supabase.sh start",
+    "supabase:stop": "bash supabase/bin/supabase.sh stop",
+    "supabase:reset": "bash supabase/bin/supabase.sh reset",
+    "supabase:status": "bash supabase/bin/supabase.sh status"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.5.0",
