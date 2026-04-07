@@ -11,31 +11,37 @@ const prisma = new PrismaClient({adapter})
 
 const userData: Prisma.UserCreateInput[] = [
   {
+    id: "3509664f-3110-4790-95fd-0f9fb2b189c5",
     name: "Sheikh Ahmed",
-    email: "ahmed@awqaf.ae",
+    email: "teacher@test.com",
     emiratesId: "784198012345671",
     role: Role.TEACHER,
     teacher: {
+      connectOrCreate: {
+      where: {userId: "3509664f-3110-4790-95fd-0f9fb2b189c5"},
       create: {
-        // You can add specialization here if you want
+      },
       },
     },
   },
   {
+    id: "62884412-560f-4882-8a30-cf2f7f99e422",
     name: "Omar Hamdan",
-    email: "omar@student.ae",
+    email: "student@test.com",
     emiratesId: "784201012345672",
     role: Role.STUDENT,
     student: {
-      create: {
-        currentJuz: 2,
-      },
+      connectOrCreate: {
+      where: {userId: "62884412-560f-4882-8a30-cf2f7f99e422"},
+      create: {},
+      }
     },
   },
 ];
 
 const mosqueData: Prisma.MosqueCreateInput[] = [
   {
+    id: "grand-mosque-abudhabi",
     nameAr: "جامع الشيخ زايد الكبير",
     nameEn: "Sheikh Zayed Grand Mosque",
     emirate: Emirate.ABU_DHABI,
@@ -49,14 +55,28 @@ async function main() {
 
   // Seed Mosques
   for (const m of mosqueData) {
-    const mosque = await prisma.mosque.create({ data: m });
-    console.log(`Created Mosque: ${mosque.nameEn}`);
+    const mosque = await prisma.mosque.upsert({
+      where: {id: m.id},
+      update: m,
+      create: m
+    });
+    console.log(`Synced Mosque: ${mosque.nameEn}`);
   }
 
   // Seed Users (Teachers & Students)
   for (const u of userData) {
-    const user = await prisma.user.create({ data: u });
-    console.log(`Created User: ${user.name} with role ${user.role}`);
+    const user = await prisma.user.upsert({
+      where: {id: u.id},
+      update: {
+        name: u.name,
+        emiratesId: u.emiratesId,
+        role: u.role,
+        teacher: u.teacher,
+        student: u.student
+      },
+      create: u
+    });
+    console.log(`Synced User: ${user.name} with role ${user.role}`);
   }
 
   console.log("Seeding finished.");
