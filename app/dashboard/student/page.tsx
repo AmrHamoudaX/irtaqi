@@ -1,7 +1,7 @@
 import { LiveSessions } from "@/components/live-sessions";
 import { SessionCard } from "@/components/session-card";
 
-export default function ProtectedPage() {
+export default function StudentDashboard() {
   const UPCOMING_SESSIONS = [
     {
       title: "حلقة الشيخ / عبدالرحمن نوح",
