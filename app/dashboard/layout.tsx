@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Hero } from "@/components/hero";
 
-export default function ProtectedLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
