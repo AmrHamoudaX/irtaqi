@@ -1,11 +1,8 @@
 "use client";
 
-import * as React from "react";
-
 import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
-import { TeamSwitcher } from "@/components/team-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -14,49 +11,75 @@ import {
   SidebarMenu,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { GalleryVerticalEndIcon, House, Calendar } from "lucide-react";
+import { House, Calendar } from "lucide-react";
 
-// This is sample data.
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "",
+import { Role } from "@/lib/generated/prisma/enums";
+import { Users, BookOpen, Settings } from "lucide-react";
+import { useUser } from "./providers/user-provider";
+
+const NAVIGATION_CONFIG = {
+  [Role.ADMIN]: {
+    navMain: [
+      {
+        title: "User Management",
+        url: "/dashboard/admin/users",
+        icon: <Users />,
+      },
+      {
+        title: "System Settings",
+        url: "/dashboard/admin/settings",
+        icon: <Settings />,
+      },
+    ],
+    projects: [
+      { name: "Admin Home", url: "/dashboard/admin", icon: <House /> },
+    ],
   },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: <GalleryVerticalEndIcon />,
-    },
-  ],
-  navMain: [
-    {
-      title: "Quran Courses",
-      url: "#",
-      icon: <Calendar />,
-      isActive: true,
-      items: [
-        {
-          title: "Online Courses",
-          url: "#",
-        },
-        {
-          title: "Offline Courses",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Main",
-      url: "#",
-      icon: <House />,
-    },
-  ],
+  [Role.TEACHER]: {
+    navMain: [
+      {
+        title: "My Classes",
+        url: "/dashboard/teacher/classes",
+        icon: <BookOpen />,
+      },
+      {
+        title: "Attendance",
+        url: "/dashboard/teacher/attendance",
+        icon: <Calendar />,
+      },
+    ],
+    projects: [
+      { name: "Teacher Panel", url: "/dashboard/teacher", icon: <House /> },
+    ],
+  },
+  [Role.STUDENT]: {
+    navMain: [
+      {
+        title: "Quran Courses",
+        url: "#",
+        icon: <Calendar />,
+        items: [
+          { title: "Online Courses", url: "/dashboard/student/online" },
+          { title: "Offline Courses", url: "/dashboard/student/offline" },
+        ],
+      },
+    ],
+    projects: [
+      { name: "My Dashboard", url: "/dashboard/student", icon: <House /> },
+    ],
+  },
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const user = useUser();
+  const userProfile = {
+    name: user?.name ?? "Guest",
+    email: user?.email ?? "",
+    avatar: "",
+  };
+
+  const role = user?.role ?? Role.STUDENT;
+  const config = NAVIGATION_CONFIG[role];
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -167,17 +190,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               {/* Hidden When Collapsed */}
               <div className="grid flex-1 text-left text-sm leading-tight group-data-[collapsible=icon]:hidden">
                 <h1 className="truncate font-semibold text-base">Irtaqi</h1>
+                <span className="text-xs text-muted-foreground capitalize">
+                  {role.toLowerCase()}
+                </span>
               </div>
             </div>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavProjects projects={data.projects} />
-        <NavMain items={data.navMain} />
+        <NavProjects projects={config.projects} />
+        <NavMain items={config.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={userProfile} />
       </SidebarFooter>
     </Sidebar>
   );

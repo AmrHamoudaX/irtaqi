@@ -2,15 +2,23 @@ import { cache } from "react";
 import { createClient } from "../supabase/server";
 
 export const getAuthClaims = cache(async ()=> {
-  const supabase = await createClient()
-  const {data, error} = await supabase.auth.getClaims()
+  const supabase = await createClient();
 
-  if (error || !data?.claims) return null;
+  try{
+  const {data , error} = await supabase.auth.getClaims();
+
+  if (error) {
+    if(error?.status === 401 ) return null;
+
+  console.error("Supabase Auth Error: ", error.message)
+    return null;
+  }
+
+    if(!data?.claims) return null
 
 return data.claims
-})
-
-export const getUserId = cache(async ()=> {
-  const claims = await getAuthClaims()
-  return claims?.sub ?? null
+} catch(e) {
+    console.error("Unexpected Auth Crash: ", e);
+  return null;
+  }
 })
