@@ -19,8 +19,7 @@ const userData: Prisma.UserCreateInput[] = [
     teacher: {
       connectOrCreate: {
       where: {userId: "3509664f-3110-4790-95fd-0f9fb2b189c5"},
-      create: {
-      },
+      create: {},
       },
     },
   },
@@ -33,6 +32,18 @@ const userData: Prisma.UserCreateInput[] = [
     student: {
       connectOrCreate: {
       where: {userId: "62884412-560f-4882-8a30-cf2f7f99e422"},
+      create: {},
+      }
+    },
+  },
+  {
+    id: "5e8accb8-2299-4746-ac35-98aeedc0ca91",
+    name: "Amr Osama",
+    email: "admin@test.com",
+    role: Role.ADMIN,
+    student: {
+      connectOrCreate: {
+      where: {userId: "5e8accb8-2299-4746-ac35-98aeedc0ca91"},
       create: {},
       }
     },
