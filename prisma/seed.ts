@@ -41,12 +41,6 @@ const userData: Prisma.UserCreateInput[] = [
     name: "Amr Osama",
     email: "admin@test.com",
     role: Role.ADMIN,
-    student: {
-      connectOrCreate: {
-      where: {userId: "5e8accb8-2299-4746-ac35-98aeedc0ca91"},
-      create: {},
-      }
-    },
   },
 ];
 
