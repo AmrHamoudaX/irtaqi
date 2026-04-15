@@ -21,11 +21,6 @@ const NAVIGATION_CONFIG = {
   [Role.ADMIN]: {
     navMain: [
       {
-        title: "User Management",
-        url: "/dashboard/admin/users",
-        icon: <Users />,
-      },
-      {
         title: "System Settings",
         url: "/dashboard/admin/settings",
         icon: <Settings />,
@@ -33,6 +28,11 @@ const NAVIGATION_CONFIG = {
     ],
     projects: [
       { name: "Admin Home", url: "/dashboard/admin", icon: <House /> },
+      {
+        name: "Users Management",
+        url: "/dashboard/admin/users",
+        icon: <Users />,
+      },
     ],
   },
   [Role.TEACHER]: {

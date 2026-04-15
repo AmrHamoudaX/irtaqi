@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { requireRole } from "@/lib/auth/guards";
+import { Toaster } from "sonner";
 
 async function Guard({ children }: { children: React.ReactNode }) {
   await requireRole("ADMIN");
@@ -14,6 +15,7 @@ export default function AdminLayout({
   return (
     <Suspense>
       <Guard>{children}</Guard>
+      <Toaster richColors position="top-center" />
     </Suspense>
   );
 }
